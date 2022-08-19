@@ -1,0 +1,1 @@
+import './config/module-alias';
