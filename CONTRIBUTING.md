@@ -1,6 +1,6 @@
-# Contributing to TypeORM
+# Contributing to TypeAirtable
 
-We would love for you to contribute to TypeORM and help make it even better than it is today!
+We would love for you to contribute to TypeAirtable and help make it even better than it is today!
 As a contributor, here are the guidelines we would like you to follow:
 
  - [Question or Problem?](#question)
@@ -13,22 +13,21 @@ As a contributor, here are the guidelines we would like you to follow:
 
 There are several ways how you can ask your question:
 
-* You can create a question on [StackOverflow](https://stackoverflow.com/questions/tagged/typeorm) where the questions should be tagged with tag `typeorm`.
-* You can ask on [Slack](https://join.slack.com/t/typeorm/shared_invite/zt-uu12ljeb-OH_0086I379fUDApYJHNuw)
-* You can create issue on [github](https://github.com/typeorm/typeorm/issues)
-* If you have a Skype then try to find me there (`Umed Khudoiberdiev`)
+* You can create a question on [StackOverflow](https://stackoverflow.com/questions/tagged/typeairtable) where the questions should be tagged with tag `typeairtable`.
+* You can ask on [Think A.M. Discord](https://discord.gg/5uKxsrVTMR)
+* You can create issue on [github](https://github.com/thinkam/typeairtable/issues)
 
 Preferred way if you create your question on StackOverflow, or create a github issue.
 
 ## <a name="issue"></a> Found a security vulnerability?
 
 If you find a security vulnerability or something that should be discussed personally,
-please contact me within my [email](https://github.com/typeorm/typeorm/blob/master/package.json#L10).
+please contact me within my [email](https://github.com/thinkam/typeairtable/blob/main/package.json#L10).
 
 ## <a name="issue"></a> Found a Bug?
 
 If you find a bug in the source code, you can help us by [submitting an issue](#submit-issue) to our
-[GitHub Repository](https://github.com/typeorm/typeorm).
+[GitHub Repository](https://github.com/thinkam/typeairtable).
 Even better, you can [submit a Pull Request](#submit-pr) with a fix.
 
 ## <a name="feature"></a> Missing a Feature?
@@ -53,12 +52,12 @@ maybe an issue for your problem already exists and the discussion might inform y
 We want to fix all the issues as soon as possible, but before fixing a bug we need to reproduce and confirm it.
  In order to reproduce bugs we ask you to provide a minimal code snippet that shows a reproduction of the problem.
 
-You can file new issues by filling out our [new issue form](https://github.com/typeorm/typeorm/issues/new).
+You can file new issues by filling out our [new issue form](https://github.com/thinkam/typeairtable/issues/new).
 
 ### <a name="submit-pr"></a> Submitting a Pull Request (PR)
 Before you submit your Pull Request (PR) consider the following guidelines:
 
-* Search [GitHub](https://github.com/typeorm/typeorm/pulls) for an open or closed PR
+* Search [GitHub](https://github.com/thinkam/typeairtable/pulls) for an open or closed PR
   that relates to your submission. You don't want to duplicate effort.
 * Make your changes in a new git branch:
 
@@ -67,7 +66,7 @@ Before you submit your Pull Request (PR) consider the following guidelines:
      ```
 
 * Create your patch, **including appropriate test cases**. Without tests your PR will not be accepted.
-* Run the full TypeORM test suite, as described in the [developer documentation](DEVELOPER.md), and ensure that all tests pass.
+* Run the full TypeAirtable test suite, as described in the [developer documentation](DEVELOPER.md), and ensure that all tests pass.
 * Commit your changes using a descriptive commit message that follows our [commit message conventions](#commit). Adherence to these conventions is necessary because release notes are automatically generated from these messages.
 
      ```shell
@@ -81,7 +80,7 @@ Before you submit your Pull Request (PR) consider the following guidelines:
     git push origin my-fix-branch
     ```
 
-* In GitHub, send a pull request to `typeorm:master`.
+* In GitHub, send a pull request to `typeairtable:master`.
 * If we suggest changes then:
   * Make the required updates.
   * Re-run the TypeORM test suites to ensure tests are still passing.
@@ -192,7 +191,7 @@ Implement new feature:
 ```
 feat: implement new magic decorator
 
-This new feature change bahviour of typeorm to allow use new magic decorator...
+This new feature change bahviour of typeairtable to allow use new magic decorator...
 
 Closes: #22222
 ```
@@ -206,40 +205,3 @@ refactor: refactor driver API
 
 BREAKING CHANGE: description of breaking change in driver API
 ```
-
-## Financial contributions
-
-We also welcome financial contributions in full transparency on our [open collective](https://opencollective.com/typeorm).
-Anyone can file an expense. If the expense makes sense for the development of the community, it will be "merged" in the ledger of our open collective by the core contributors and the person who filed the expense will be reimbursed.
-
-
-## Credits
-
-
-### Contributors
-
-Thank you to all the people who have already contributed to typeorm!
-<a href="../../graphs/contributors"><img src="https://opencollective.com/typeorm/contributors.svg?width=890" /></a>
-
-
-### Backers
-
-Thank you to all our backers! [[Become a backer](https://opencollective.com/typeorm#backer)]
-
-<a href="https://opencollective.com/typeorm#backers" target="_blank"><img src="https://opencollective.com/typeorm/backers.svg?width=890"></a>
-
-
-### Sponsors
-
-Thank you to all our sponsors! (please ask your company to also support this open source project by [becoming a sponsor](https://opencollective.com/typeorm#sponsor))
-
-<a href="https://opencollective.com/typeorm/sponsor/0/website" target="_blank"><img src="https://opencollective.com/typeorm/sponsor/0/avatar.svg"></a>
-<a href="https://opencollective.com/typeorm/sponsor/1/website" target="_blank"><img src="https://opencollective.com/typeorm/sponsor/1/avatar.svg"></a>
-<a href="https://opencollective.com/typeorm/sponsor/2/website" target="_blank"><img src="https://opencollective.com/typeorm/sponsor/2/avatar.svg"></a>
-<a href="https://opencollective.com/typeorm/sponsor/3/website" target="_blank"><img src="https://opencollective.com/typeorm/sponsor/3/avatar.svg"></a>
-<a href="https://opencollective.com/typeorm/sponsor/4/website" target="_blank"><img src="https://opencollective.com/typeorm/sponsor/4/avatar.svg"></a>
-<a href="https://opencollective.com/typeorm/sponsor/5/website" target="_blank"><img src="https://opencollective.com/typeorm/sponsor/5/avatar.svg"></a>
-<a href="https://opencollective.com/typeorm/sponsor/6/website" target="_blank"><img src="https://opencollective.com/typeorm/sponsor/6/avatar.svg"></a>
-<a href="https://opencollective.com/typeorm/sponsor/7/website" target="_blank"><img src="https://opencollective.com/typeorm/sponsor/7/avatar.svg"></a>
-<a href="https://opencollective.com/typeorm/sponsor/8/website" target="_blank"><img src="https://opencollective.com/typeorm/sponsor/8/avatar.svg"></a>
-<a href="https://opencollective.com/typeorm/sponsor/9/website" target="_blank"><img src="https://opencollective.com/typeorm/sponsor/9/avatar.svg"></a>
