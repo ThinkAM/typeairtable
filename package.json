@@ -1,6 +1,6 @@
 {
-  "name": "airtableql",
-  "version": "1.0.0",
+  "name": "@thinkam/typeairtable",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "prepare": "husky install"
   },
   "author": "Caio Gomes",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.27.2",
     "module-alias": "^2.2.2",
