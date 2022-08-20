@@ -1,19 +1,20 @@
-# Building and Testing TypeORM
+# Building and Testing TypeAirtable
 
-This document describes how to set up your development environment and run TypeORM test cases.
+This document describes how to set up your development environment and run TypeAirtable test cases.
 
-* [Prerequisite Software](#prerequisite-software)
-* [Getting the Sources](#getting-the-sources)
-* [Installing NPM Modules](#installing-npm-modules)
-* [Building](#building)
-* [Running Tests Locally](#running-tests-locally)
+- [Building and Testing TypeAirtable](#building-and-testing-typeairtable)
+  - [Prerequisite Software](#prerequisite-software)
+  - [Getting the Sources](#getting-the-sources)
+  - [Installing NPM Modules](#installing-npm-modules)
+  - [Running Tests Locally](#running-tests-locally)
+    - [Faster developer cycle for editing code and running tests](#faster-developer-cycle-for-editing-code-and-running-tests)
 
-See the [contribution guidelines](https://github.com/typeorm/typeorm/blob/master/CONTRIBUTING.md)
-if you'd like to contribute to TypeORM.
+See the [contribution guidelines](https://github.com/thinkam/typeairtable/blob/main/CONTRIBUTING.md)
+if you'd like to contribute to TypeAirtable.
 
 ## Prerequisite Software
 
-Before you can build and test TypeORM, you must install and configure the
+Before you can build and test TypeAirtable, you must install and configure the
 following products on your development machine:
 
 * [Git](http://git-scm.com) and/or the **GitHub app** (for [Mac](http://mac.github.com) or
@@ -22,32 +23,26 @@ following products on your development machine:
 * [Node.js](http://nodejs.org), (better to install latest version) which is used to run a development web server,
   run tests, and generate distributable files.
   Depending on your system, you can install Node either from source or as a pre-packaged bundle.
-* [Mysql](https://www.mysql.com/) is required to run tests on this platform (or docker)
-* [MariaDB](https://mariadb.com/) is required to run tests on this platform (or docker)
-* [Postgres](https://www.postgresql.org/) is required to run tests on this platform (or docker)
-* [Oracle](https://www.oracle.com/database/index.html) is required to run tests on this platform
-* [Microsoft SQL Server](https://www.microsoft.com/en-us/cloud-platform/sql-server) is required to run tests on this platform
-* For MySQL, MariaDB and Postgres you can use [docker](https://www.docker.com/) instead (docker configuration is
- [here](https://github.com/typeorm/typeorm/blob/master/docker-compose.yml))
+* [Airtable](https://airtable.com/invite/l?inviteId=inva8pcwGMWQOajKh&inviteToken=299df579ea83665c495a2543fb17e04a010528eafd7dd9d35ad4a9f5df96c504&utm_medium=email&utm_source=product_team&utm_content=transactional-alerts) is required to run tests on this platform
 
 ## Getting the Sources
 
 Fork and clone the repository:
 
 1. Login to your GitHub account or create one by following the instructions given [here](https://github.com/signup/free).
-2. [Fork](http://help.github.com/forking) the [main TypeORM repository](https://github.com/typeorm/typeorm).
-3. Clone your fork of the TypeORM repository and define an `upstream` remote pointing back to
-   the TypeORM repository that you forked in the first place.
+2. [Fork](http://help.github.com/forking) the [main TypeAirtable repository](https://github.com/thinkam/typeairtable).
+3. Clone your fork of the TypeAirtable repository and define an `upstream` remote pointing back to
+   the TypeAirtable repository that you forked in the first place.
 
 ```shell
 # Clone your GitHub repository:
-git clone git@github.com:<github username>/typeorm.git
+git clone git@github.com:<github username>/typeairtable.git
 
-# Go to the TypeORM directory:
-cd typeorm
+# Go to the TypeAirtable directory:
+cd typeairtable
 
-# Add the main TyepORM repository as an upstream remote to your repository:
-git remote add upstream https://github.com/typeorm/typeorm.git
+# Add the main TyepAirtable repository as an upstream remote to your repository:
+git remote add upstream https://github.com/thinkam/typeairtable.git
 ```
 ## Installing NPM Modules
 
@@ -56,39 +51,6 @@ Install all TypeORM dependencies by running this command:
 ```shell
 npm install
 ```
-
-During installation you may have some problems with some dependencies.
-For example to proper install oracle driver you need to follow all instructions from
- [node-oracle documentation](https://github.com/oracle/node-oracledb).
-
-## ORM config
-
-To create an initial `ormconfig.json` file, run the following command:
-
-```shell
-cp ormconfig.json.dist ormconfig.json
-```
-
-## Building
-
-To build a distribution package of TypeORM run:
-
-```shell
-npm run package
-```
-
-This command will generate you a distribution package in the `build/package` directory.
-You can link (or simply copy/paste) this directory into your project and test TypeORM there
-(but make sure to keep all node_modules required by TypeORM).
-
-To build the distribution package of TypeORM packed into a `.tgz`, run:
-
-```shell
-npm run pack
-```
-
-This command will generate you a distribution package tar in the `build` directory (`build/typeorm-x.x.x.tgz`).
-You can copy this tar into your project and run `npm install ./typeorm-x.x.x.tgz` to bundle your build of TypeORM in your project.
 
 ## Running Tests Locally
 
@@ -101,38 +63,93 @@ create `test/github-issues/363/issue-363.ts`.
 Most tests will benefit from using this template as a starting point:
 
 ```ts
-import "reflect-metadata";
-import { createTestingConnections, closeTestingConnections, reloadTestingDatabases } from "../../utils/test-utils";
-import { DataSource } from "../../../src/data-source/DataSource"
-import { expect } from "chai";
+import { UrlGenerator } from '../../../src/data/services/url-generator';
+import { ConfigModel, Field, TableModel } from '../../../src/domain/contracts';
 
-describe("github issues > #<issue number> <issue title>", () => {
+const makeSut = () => {
+  const config: ConfigModel = {
+    baseUrl: 'https://api.airtable.com/v0/any',
+    apiKey: 'any_key',
+  };
+  const table: TableModel = {
+    tableName: 'MyTable',
+    columns: {
+      name: 'singleText',
+      email: 'singleText',
+      password: 'singleText',
+    },
+  };
+  const sut = new UrlGenerator(config, table);
+  const initialUrl = `${config.baseUrl}/${table.tableName}?api_key=${config.apiKey}`;
+  return { sut, initialUrl };
+};
 
-    let dataSources: DataSource[];
-    before(async () => dataSources = await createTestingConnections({
-        entities: [__dirname + "/entity/*{.js,.ts}"],
-        schemaCreate: true,
-        dropSchema: true,
-    }));
-    beforeEach(() => reloadTestingDatabases(dataSources));
-    after(() => closeTestingConnections(dataSources));
+describe('UrlGenerator', () => {
+  it('Should return url correct if dataInstance is empty', () => {
+    const { sut, initialUrl } = makeSut();
+    expect(sut.getUrl({})).toBe(initialUrl);
+  });
 
-    it("should <put a detailed description of what it should do here>", () => Promise.all(dataSources.map(async dataSource => {
+  it('Should return url correct if exists select', () => {
+    const { sut, initialUrl } = makeSut();
+    const url = `${initialUrl}&fields[]=name&fields[]=email`;
+    expect(sut.getUrl({ select: ['name', 'email'] })).toBe(url);
+  });
 
-       // tests go here
+  it('Should return url correct if exists orderBy', () => {
+    const { sut, initialUrl } = makeSut();
+    const url = `${initialUrl}&sort[0][field]=name&sort[0][direction]=asc&sort[1][field]=email&sort[1][direction]=desc`;
+    expect(
+      sut.getUrl({
+        orderBy: { name: 'asc', email: 'desc' },
+      })
+    ).toBe(url);
+  });
 
-    })));
+  it('Should return url correct if exists where = AND operator', () => {
+    const { sut, initialUrl } = makeSut();
+    const url = `${initialUrl}&filterByFormula=AND({name}='any_name',{email}='any_email')`;
+    expect(
+      sut.getUrl({
+        where: { name: 'any_name', email: 'any_email' },
+      })
+    ).toBe(url);
+  });
 
-    // you can add additional tests if needed
+  it('Should return url correct if exists where = OR operator', () => {
+    const { sut, initialUrl } = makeSut();
+    const url = `${initialUrl}&filterByFormula=OR(AND({name}='any_name',{email}='any_email'),AND({name}='any_name2'))`;
+    expect(
+      sut.getUrl({
+        where: [
+          { name: 'any_name', email: 'any_email' },
+          { name: 'any_name2' },
+        ],
+      })
+    ).toBe(url);
+  });
 
+  it('Should return url correct if where exists boolean with value equal true', () => {
+    const { sut, initialUrl } = makeSut();
+    const url = `${initialUrl}&filterByFormula=AND(isActived)`;
+    expect(
+      sut.getUrl({
+        where: { isActived: true },
+      })
+    ).toBe(url);
+  });
+
+  it('Should return url correct if where exists boolean with value equal false', () => {
+    const { sut, initialUrl } = makeSut();
+    const url = `${initialUrl}&filterByFormula=AND(NOT(isActived))`;
+    expect(
+      sut.getUrl({
+        where: { isActived: false },
+      })
+    ).toBe(url);
+  });
 });
 ```
-
-If you place entities in `./entity/<entity-name>.ts` relative to your `issue-<num>.ts` file,
-they will automatically be loaded.
-
-To run the tests, setup your environment configuration by copying `ormconfig.json.dist` into `ormconfig.json` and
-replacing parameters with your own.
 
 Then run tests:
 
@@ -165,50 +182,3 @@ The `npm test` script works by deleting built TypeScript code, rebuilding the co
 Instead, for a quicker feedback cycle, you can run `npm run compile -- --watch` to make a fresh build and instruct TypeScript to watch for changes and only compile what code you've changed.
 
 Once TypeScript finishes compiling your changes, you can run `npm run test-fast` (instead of `test`), to trigger a test without causing a full recompile, which allows you to edit and check your changes much faster.
-
-## Using Docker
-
-To run your tests you need dbms installed on your machine. Alternatively, you can use docker
-with all dbms images inside it. To use dbms for your tests from docker simply run `docker-compose up`
-in the root of the project. Once all images are fetched and run you can run tests.
-
-- The docker image of mssql-server needs at least 3.25GB of RAM.
-- Make sure to assign enough memory to the Docker VM if you're running on Docker for Mac or Windows
-
-### Oracle XE
-
-In order to run tests on Oracle XE locally, we need to start 2 docker containers:
-
-- a container with Oracle XE database
-- a container with typeorm and its tests
-
-#### 1. Booting Oracle XE database
-
-Execute in shell the next command:
-
-```shell
-docker-compose up -d oracle
-```
-
-It will start an oracle instance only.
-The instance will be run in background,
-therefore, we need to stop it later on.
-
-#### 2. Booting typeorm for Oracle
-
-Execute in shell the next command:
-
-```shell
-docker-compose -f docker-compose.oracle.yml up
-```
-
-it will start a nodejs instance which builds typeorm and executes unit tests.
-The instance exits after the run.
-
-#### 3. Shutting down Oracle XE database
-
-Execute in shell the next command:
-
-```shell
-docker-compose down
-```
