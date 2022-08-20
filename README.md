@@ -90,18 +90,6 @@ And your delete will look this way:
 
     `npm install @thinkam/typeairtable --save`
 
-##### TypeScript configuration
-
-Also, make sure you are using TypeScript version **4.5** or higher,
-and you have enabled the following settings in `tsconfig.json`:
-
-```json
-"emitDecoratorMetadata": true,
-"experimentalDecorators": true,
-```
-
-You may also need to enable `es6` in the `lib` section of compiler options, or install `es6-shim` from `@types`.
-
 ## Contributing
 
 Learn about contribution [here](https://github.com/thinkam/typeairtable/blob/main/CONTRIBUTING.md) and how to setup your development environment [here](https://github.com/thinkam/typeairtable/blob/main/DEVELOPER.md).
