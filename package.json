@@ -1,8 +1,27 @@
 {
   "name": "@thinkam/typeairtable",
+  "private": false,
   "version": "0.0.1",
-  "description": "",
+  "description": "Data-Mapper Airtable for TypeScript, ES7, ES6, ES5. Supports Airtable database.",
+  "readmeFilename": "README.md",
   "main": "index.js",
+  "engines": {
+    "node": ">= 16.16.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thinkam/typeairtable.git"
+  },
+  "bugs": {
+    "url": "https://github.com/thinkam/typeairtable/issues"
+  },
+  "homepage": "https://thinkam.net",
+  "tags": [
+    "orm",
+    "typescript",
+    "typescript-orm",
+    "airtable"
+  ],
   "scripts": {
     "test": "jest --passWithNoTests --no-cache --runInBand",
     "build": "rimraf dist && tsc -p tsconfig-build.json",
