@@ -1,7 +1,5 @@
 <div align="center">
-  <a href="http://typeorm.io/">
     <img src="https://github.com/thinkam/typeairtable/raw/main/resources/logo_big.png" width="492" height="228">
-  </a>
   <br>
   <br>
 	<a href="https://discord.gg/5uKxsrVTMR">
@@ -23,72 +21,75 @@ TypeAirtable is highly influenced by other ORMs, such as [TypeORM](https://typeo
 
 ## Features
 
--   Entities and columns.
--   Database-specific column types.
--   Repositories and custom repositories.
--   Using multiple database instances.
--   Elegant-syntax and flexible.
--   Supports Airtable.
--   Works in NodeJS / Browser / Ionic / Cordova / React Native / NativeScript / Expo / Electron platforms / ReactJS / Angular / VueJS.
--   TypeScript and JavaScript support.
--   ESM and CommonJS support.
--   Produced code is performant, flexible, clean and maintainable.
--   Follows all possible best practices.
+- Entities and columns.
+- Database-specific column types.
+- Repositories and custom repositories.
+- Using multiple database instances.
+- Elegant-syntax and flexible.
+- Supports Airtable.
+- Works in NodeJS / Browser / Ionic / Cordova / React Native / NativeScript / Expo / Electron platforms / ReactJS / Angular / VueJS.
+- TypeScript and JavaScript support.
+- ESM and CommonJS support.
+- Produced code is performant, flexible, clean and maintainable.
+- Follows all possible best practices.
 
 And more...
 
 With TypeAirtable your find look like this:
 
 ```typescript
-    const config = new AirTableConfig();
-    const instance = config.configure({
-      baseUrl: 'https://api.airtable.com/v0/your_url',
-      apiKey: 'your_api_key',
-    });
+import { AirTableConfig } from '@thinkam/typeairtable';
 
-    const repository = instance.getRepository({
-      tableName: 'your_table',
-      columns: {
-        name: 'singleText',
-        isActived: 'checkBox',
-      },
-    });
+const config = new AirTableConfig();
 
-    const result = await repository.find({
-      select: ['name'],
-      where: { name: 'blah' },
-    });
+const instance = config.configure({
+  baseUrl: 'https://api.airtable.com/v0/your_url',
+  apiKey: 'your_api_key',
+});
+
+const repository = instance.getRepository({
+  tableName: 'your_table',
+  columns: {
+    name: 'singleText',
+    isActived: 'checkBox',
+  },
+});
+
+const result = await repository.find({
+  select: ['name'],
+  where: { name: 'blah' },
+});
 ```
 
 And your create looks like this:
 
 ```typescript
-    await repository.create({
-      name: 'your_name',
-      isActived: true,
-    });
+await repository.create({
+  name: 'your_name',
+  isActived: true,
+});
 ```
 
 If you prefer update, you can use it as well:
 
 ```typescript
-    await repository.update('your_id', {
-      name: 'other_name',
-      isActived: false
-    });
+await repository.update('your_id', {
+  name: 'other_name',
+  isActived: false,
+});
 ```
 
 And your delete will look this way:
 
 ```typescript
-    await repository.destroy('your_id');
+await repository.destroy('your_id');
 ```
 
 ## Installation
 
 1. Install the npm package:
 
-    `npm install @thinkam/typeairtable --save`
+   `npm install @thinkam/typeairtable --save`
 
 ## Contributing
 
