@@ -2,7 +2,7 @@
   "deprecated": false,
   "name": "@thinkam/typeairtable",
   "private": false,
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Data-Mapper Airtable for TypeScript, ES7, ES6, ES5. Supports Airtable database.",
   "readmeFilename": "README.md",
   "main": "./lib/main/index.js",
@@ -35,17 +35,14 @@
   },
   "author": "Caio Gomes",
   "license": "MIT",
-  "bundleDependencies": [],
   "dependencies": {
     "axios": "^0.27.2",
-    "module-alias": "^2.2.2",
     "tsconfig-paths": "^4.1.0",
     "tscpaths": "^0.0.9",
     "typescript": "^4.7.4"
   },
   "devDependencies": {
     "@types/jest": "^28.1.6",
-    "@types/module-alias": "^2.0.1",
     "@types/node": "^18.7.8",
     "husky": "^8.0.1",
     "jest": "^28.1.3",
