@@ -8,12 +8,17 @@ import {
 } from '@/domain/contracts';
 import { GetUrlGenerator } from '../../domain/features/get-url-generator';
 import { HttpClient } from '../protocols/http/http-client';
+import { deepClone } from '../utils';
 
 export class Repository implements RepositoryModel {
+  private urlGenerator: GetUrlGenerator;
   constructor(
-    private readonly urlGenerator: GetUrlGenerator,
+    urlGenerator: GetUrlGenerator,
     private readonly httpClient: HttpClient
-  ) {}
+  ) {
+    this.urlGenerator = deepClone(urlGenerator);
+  }
+
   async find<E extends QueryFind<any>>(
     params: E
   ): Promise<DataResult<any, E['select']>> {
