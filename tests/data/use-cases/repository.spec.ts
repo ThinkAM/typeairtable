@@ -1,14 +1,15 @@
 import { makeSutRepository } from '../mocks';
 
 describe('Repository', () => {
-  it('Should calls url in the method get of httpClient', async () => {
+  it('Should call the "get" method of httpClient with the correct parameters', async () => {
     const { sut, httpClientMock, url, config } = makeSutRepository();
     const httpClientSpy = jest.spyOn(httpClientMock, 'get');
     await sut.find({});
     expect(httpClientSpy).toHaveBeenCalledTimes(1);
     expect(httpClientSpy).toHaveBeenCalledWith(`${url}&maxRecords=1`, config);
   });
-  it('Should calls correct body on create', () => {
+
+  it('Should call the "post" method of httpClient with the correct parameters for create', () => {
     const { sut, httpClientMock, url, config } = makeSutRepository();
     const httpClientSpy = jest.spyOn(httpClientMock, 'post');
     const body = {
@@ -18,7 +19,8 @@ describe('Repository', () => {
     expect(httpClientSpy).toHaveBeenCalledTimes(1);
     expect(httpClientSpy).toHaveBeenCalledWith(url, { fields: body }, config);
   });
-  it('Should calls correct body on destroy', () => {
+
+  it('Should call the "delete" method of httpClient with the correct parameters for destroy', () => {
     const { sut, httpClientMock, url, config } = makeSutRepository();
     const httpClientSpy = jest.spyOn(httpClientMock, 'delete');
     const id = 'any_id';
@@ -26,7 +28,8 @@ describe('Repository', () => {
     expect(httpClientSpy).toHaveBeenCalledTimes(1);
     expect(httpClientSpy).toHaveBeenCalledWith(url, id, config);
   });
-  it('Should calls correct body on update', () => {
+
+  it('Should call the "patch" method of httpClient with the correct parameters for update', () => {
     const { sut, httpClientMock, url, config } = makeSutRepository();
     const httpClientSpy = jest.spyOn(httpClientMock, 'patch');
     const id = 'any_id';
