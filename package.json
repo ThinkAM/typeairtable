@@ -2,7 +2,7 @@
   "deprecated": false,
   "name": "@thinkam/typeairtable",
   "private": false,
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Data-Mapper Airtable for TypeScript, ES7, ES6, ES5. Supports Airtable database.",
   "readmeFilename": "README.md",
   "main": "./lib/main/index.js",
