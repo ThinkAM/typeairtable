@@ -10,7 +10,7 @@ export class UrlGenerator implements GetUrlGenerator {
   url = '';
   header = {
     name: 'Authorization',
-    value: `Bearer ${this.config.apiKey}`
+    value: ''
   };
 
   constructor(
@@ -23,6 +23,7 @@ export class UrlGenerator implements GetUrlGenerator {
 
   setTable(table?: TableModel): void {
     if (table) {
+      this.header.value = `Bearer ${this.config.apiKey}`;
       this.url = `${this.config.baseUrl}/${table.tableName}`;
     }
   }
