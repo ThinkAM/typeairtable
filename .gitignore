@@ -4,3 +4,4 @@ lib
 coverage
 example.js
 tests/infra/service
+.env
