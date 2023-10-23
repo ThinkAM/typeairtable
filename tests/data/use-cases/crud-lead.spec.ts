@@ -8,8 +8,8 @@ const createLead = (name, cellphone, email, area) => {
 
 const makeSut = () => {
   const config: ConfigModel = {
-    baseUrl: 'https://api.airtable.com/v0/appgVhLWiv7Tgz111',
-    apiKey: 'patanDC55RP63cOHb.ee70e6758d1cfe306e77631da678363ff9e449b2d849c6b1eb39cae1223dfe84',
+    baseUrl: process.env.AIRTABLE_BASE_URL || '',
+    apiKey: process.env.AIRTABLE_API_KEY || ''
   };
   const table: TableModel = {
     tableName: 'Lead',
