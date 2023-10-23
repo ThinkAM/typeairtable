@@ -1,6 +1,8 @@
+import { AxiosRequestConfig } from "axios";
+
 export interface HttpClient {
-  get<T = any, B = any>(url: string, headers?: B | { [header: string]: string | string[] }): Promise<T>;
-  post<T = any, B = any, C = any>(url: string, body: B, headers?: C | { [header: string]: string | string[] }): Promise<T>;
-  delete<T = any>(url: string, id: string, headers?: T | { [header: string]: string | string[] }): Promise<boolean>;
-  patch<T = any, B = any, C = any>(url: string, body: B, headers?: C | { [header: string]: string | string[] }): Promise<T>;
+  get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T>;
+  post<T = any, B = any>(url: string, body: B, config?: AxiosRequestConfig): Promise<T>;
+  delete(url: string, id: string, config?: AxiosRequestConfig): Promise<boolean>;
+  patch<T = any, B = any>(url: string, body: B, config?: AxiosRequestConfig): Promise<T>;
 }

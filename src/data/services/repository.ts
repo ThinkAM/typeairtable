@@ -22,11 +22,14 @@ export class Repository implements RepositoryModel {
   async find<E extends QueryFind<any>>(
     params: E
   ): Promise<DataResult<any, E['select']>> {
-    const header = this.urlGenerator.getHeader();
+    const headerAuthorizationValue = this.urlGenerator.getHeaderAuthorizationValue();
+    const config = {
+      headers: {
+        Authorization: headerAuthorizationValue,
+      },
+    };
     const url = this.urlGenerator.getUrl({ ...params, take: 1 });
-    const rawData = await this.httpClient.get(url, {
-      header: header
-    });
+    const rawData = await this.httpClient.get(url, config);
     const data = this.convertRawData(rawData);
     return data && data.length ? data[0] : null;
   }
@@ -34,23 +37,29 @@ export class Repository implements RepositoryModel {
   async findAll<E extends QueryFindAll<any>>(
     params: E
   ): Promise<DataResult<any, E['select']>[]> {
-    const header = this.urlGenerator.getHeader();
+    const headerAuthorizationValue = this.urlGenerator.getHeaderAuthorizationValue();
+    const config = {
+      headers: {
+        Authorization: headerAuthorizationValue,
+      },
+    };
     const url = this.urlGenerator.getUrl(params);
-    const rawData = await this.httpClient.get(url, {
-      header: header
-    });
+    const rawData = await this.httpClient.get(url, config);
     return this.convertRawData(rawData);
   }
 
   async create(
     body: ConvertFieldTypeValue<any>
   ): Promise<ConvertFieldTypeValue<any> & DefaultData> {
-    const header = this.urlGenerator.getHeader();
+    const headerAuthorizationValue = this.urlGenerator.getHeaderAuthorizationValue();
+    const config = {
+      headers: {
+        Authorization: headerAuthorizationValue,
+      },
+    };
     const result = await this.httpClient.post(this.urlGenerator.getUrl({}), {
       fields: body,
-    }, {
-      header: header
-    });
+    }, config);
     return {
       ...result.fields,
       id: result.id,
@@ -59,17 +68,25 @@ export class Repository implements RepositoryModel {
   }
 
   destroy(id: string): Promise<boolean> {
-    const header = this.urlGenerator.getHeader();
-    return this.httpClient.delete(this.urlGenerator.getUrl({}), id, {
-      header: header
-    });
+    const headerAuthorizationValue = this.urlGenerator.getHeaderAuthorizationValue();
+    const config = {
+      headers: {
+        Authorization: headerAuthorizationValue,
+      },
+    };
+    return this.httpClient.delete(this.urlGenerator.getUrl({}), id, config);
   }
 
   async update(
     id: string,
     body: ConvertFieldTypeValue<any>
   ): Promise<ConvertFieldTypeValue<any> & DefaultData> {
-    const header = this.urlGenerator.getHeader();
+    const headerAuthorizationValue = this.urlGenerator.getHeaderAuthorizationValue();
+    const config = {
+      headers: {
+        Authorization: headerAuthorizationValue,
+      },
+    };
     const result = await this.httpClient.patch(this.urlGenerator.getUrl({}), {
       records: [
         {
@@ -77,9 +94,7 @@ export class Repository implements RepositoryModel {
           fields: body,
         },
       ],
-    }, {
-      header: header
-    });
+    }, config);
     return {
       ...result.records[0].fields,
       id: result.records[0].id,

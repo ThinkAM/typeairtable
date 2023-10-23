@@ -36,7 +36,7 @@ export class UrlGenerator implements GetUrlGenerator {
     return this.url;
   }
 
-  getHeader() {
-    return `'${this.header.name}': '${this.header.value}'`;
+  getHeaderAuthorizationValue() {
+    return this.header.value;
   }
 }

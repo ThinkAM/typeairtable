@@ -22,6 +22,10 @@ export const makeSutRepository = () => {
   };
   const sut = new Repository(urlGenerator, httpClientMock);
   const url = `${baseUrl}/${name}`;
-  const header = { header: `'Authorization': 'Bearer ${apiKey}'` }
-  return { sut, httpClientMock, url, header, urlGenerator };
+  const config = {
+    headers: {
+      Authorization: `Bearer ${apiKey}`
+    }
+  };
+  return { sut, httpClientMock, url, config, urlGenerator };
 };
