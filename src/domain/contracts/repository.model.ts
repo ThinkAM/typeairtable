@@ -20,20 +20,20 @@ export type DataResult<
 > = Data<T, F>;
 
 export interface RepositoryModel<T extends ColumnsModel = any> {
-  find<E extends QueryFind<T>>(params: E): Promise<DataResult<T, E['select']>>;
+  find<E extends QueryFind<T>, A = any>(params: E, headers: A): Promise<DataResult<T, E['select']>>;
 
-  findAll<E extends QueryFindAll<T>>(
+  findAll<E extends QueryFindAll<T>, A = any>(
     params: E
   ): Promise<DataResult<T, E['select']>[]>;
 
-  create(
-    body: ConvertFieldTypeValue<T>
+  create<A = any>(
+    body: ConvertFieldTypeValue<T>, headers: A
   ): Promise<ConvertFieldTypeValue<T> & DefaultData>;
 
-  destroy(id: string): Promise<boolean>;
+  destroy<A = any>(id: string): Promise<boolean>;
 
-  update(
+  update<A = any>(
     id: string,
-    body: ConvertFieldTypeValue<T>
+    body: ConvertFieldTypeValue<T>, headers: A
   ): Promise<ConvertFieldTypeValue<T> & DefaultData>;
 }
