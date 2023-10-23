@@ -17,8 +17,11 @@ export class Repository implements RepositoryModel {
   async find<E extends QueryFind<any>>(
     params: E
   ): Promise<DataResult<any, E['select']>> {
+    const header = this.urlGenerator.getHeader();
     const url = this.urlGenerator.getUrl({ ...params, take: 1 });
-    const rawData = await this.httpClient.get(url);
+    const rawData = await this.httpClient.get(url, {
+      header: header
+    });
     const data = this.convertRawData(rawData);
     return data && data.length ? data[0] : null;
   }
@@ -26,16 +29,22 @@ export class Repository implements RepositoryModel {
   async findAll<E extends QueryFindAll<any>>(
     params: E
   ): Promise<DataResult<any, E['select']>[]> {
+    const header = this.urlGenerator.getHeader();
     const url = this.urlGenerator.getUrl(params);
-    const rawData = await this.httpClient.get(url);
+    const rawData = await this.httpClient.get(url, {
+      header: header
+    });
     return this.convertRawData(rawData);
   }
 
   async create(
     body: ConvertFieldTypeValue<any>
   ): Promise<ConvertFieldTypeValue<any> & DefaultData> {
+    const header = this.urlGenerator.getHeader();
     const result = await this.httpClient.post(this.urlGenerator.getUrl({}), {
       fields: body,
+    }, {
+      header: header
     });
     return {
       ...result.fields,
@@ -45,13 +54,17 @@ export class Repository implements RepositoryModel {
   }
 
   destroy(id: string): Promise<boolean> {
-    return this.httpClient.delete(this.urlGenerator.getUrl({}), id);
+    const header = this.urlGenerator.getHeader();
+    return this.httpClient.delete(this.urlGenerator.getUrl({}), id, {
+      header: header
+    });
   }
 
   async update(
     id: string,
     body: ConvertFieldTypeValue<any>
   ): Promise<ConvertFieldTypeValue<any> & DefaultData> {
+    const header = this.urlGenerator.getHeader();
     const result = await this.httpClient.patch(this.urlGenerator.getUrl({}), {
       records: [
         {
@@ -59,6 +72,8 @@ export class Repository implements RepositoryModel {
           fields: body,
         },
       ],
+    }, {
+      header: header
     });
     return {
       ...result.records[0].fields,

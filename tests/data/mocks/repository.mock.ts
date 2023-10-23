@@ -11,16 +11,17 @@ export const makeSutRepository = () => {
     { tableName: 'any_name', columns: { name: 'singleText' } }
   );
   const httpClientMock: jest.Mocked<HttpClient> = {
-    get: jest.fn(<T = any>(_url: string) => Promise.resolve({} as T)),
-    post: jest.fn(<T = any, B = any>(_url: string, _body: B) =>
+    get: jest.fn(<T = any, B = any>(_url: string, _header: B) => Promise.resolve({} as T)),
+    post: jest.fn(<T = any, B = any, C = any>(_url: string, _body: B, _header: C) =>
       Promise.resolve({} as T)
     ),
-    delete: jest.fn((_url: string, _id: string) => Promise.resolve(true)),
-    patch: jest.fn(<T = any, B = any>(_url: string, _body: B) =>
+    delete: jest.fn(<T = any>(_url: string, _id: string, header: T) => Promise.resolve(true)),
+    patch: jest.fn(<T = any, B = any, C = any>(_url: string, _body: B, _header: C) =>
       Promise.resolve({} as T)
     ),
   };
   const sut = new Repository(urlGenerator, httpClientMock);
-  const url = `${baseUrl}/${name}?api_key=${apiKey}`;
-  return { sut, httpClientMock, url, urlGenerator };
+  const url = `${baseUrl}/${name}`;
+  const header = { header: `'Authorization': 'Bearer ${apiKey}'` }
+  return { sut, httpClientMock, url, header, urlGenerator };
 };

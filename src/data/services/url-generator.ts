@@ -8,6 +8,10 @@ import { makeUrlValidators } from '../factories';
 
 export class UrlGenerator implements GetUrlGenerator {
   url = '';
+  header = {
+    name: 'Authorization',
+    value: `Bearer ${this.config.apiKey}`
+  };
 
   constructor(
     private readonly config: ConfigModel,
@@ -19,7 +23,7 @@ export class UrlGenerator implements GetUrlGenerator {
 
   setTable(table?: TableModel): void {
     if (table) {
-      this.url = `${this.config.baseUrl}/${table.tableName}?api_key=${this.config.apiKey}`;
+      this.url = `${this.config.baseUrl}/${table.tableName}`;
     }
   }
 
@@ -29,5 +33,9 @@ export class UrlGenerator implements GetUrlGenerator {
       this.url = validator.validate(this.url, dataInstance);
     });
     return this.url;
+  }
+
+  getHeader() {
+    return `'${this.header.name}': '${this.header.value}'`;
   }
 }

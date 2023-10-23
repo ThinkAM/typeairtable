@@ -15,7 +15,7 @@ const makeSut = () => {
     },
   };
   const sut = new UrlGenerator(config, table);
-  const initialUrl = `${config.baseUrl}/${table.tableName}?api_key=${config.apiKey}`;
+  const initialUrl = `${config.baseUrl}/${table.tableName}`;
   return { sut, initialUrl };
 };
 

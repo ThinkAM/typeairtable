@@ -1,6 +1,6 @@
 export interface HttpClient {
-  get<T = any>(url: string): Promise<T>;
-  post<T = any, B = any>(url: string, body: B): Promise<T>;
-  delete(url: string, id: string): Promise<boolean>;
-  patch<T = any, B = any>(url: string, body: B): Promise<T>;
+  get<T = any, B = any>(url: string, headers?: B | { [header: string]: string | string[] }): Promise<T>;
+  post<T = any, B = any, C = any>(url: string, body: B, headers?: C | { [header: string]: string | string[] }): Promise<T>;
+  delete<T = any>(url: string, id: string, headers?: T | { [header: string]: string | string[] }): Promise<boolean>;
+  patch<T = any, B = any, C = any>(url: string, body: B, headers?: C | { [header: string]: string | string[] }): Promise<T>;
 }
